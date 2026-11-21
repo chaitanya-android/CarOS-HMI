@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Signature permission: only apps signed with the same key can bind -->
+    <permission
+        android:name="com.carosmini.permission.BIND_CORE_SERVICE"
+        android:protectionLevel="signature" />
+
+    <application
+        android:label="CarOSMini Core"
+        android:persistent="true">
+
+        <service
+            android:name="com.carosmini.core.ProfileService"
+            android:exported="true"
+            android:permission="com.carosmini.permission.BIND_CORE_SERVICE">
+            <intent-filter>
+                <action android:name="com.carosmini.core.IProfileService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.carosmini.core.PhoneConnectionService"
+            android:exported="true"
+            android:permission="com.carosmini.permission.BIND_CORE_SERVICE">
+            <intent-filter>
+                <action android:name="com.carosmini.core.IPhoneConnectionService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.carosmini.core.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
